@@ -1,9 +1,10 @@
-from app import db
+from .app import db
+from .app import ma
 
 class Registrs(db.Model):
     __tablename__ = 'registrs'
 
-    regcode = db.Column(db.String(11), index=True, unique=True, primary_key=True )
+    regcode = db.Column(db.String(12), index=True, unique=True, primary_key=True )
     sepa = db.Column(db.String(18))
     name = db.Column(db.String(254))
     name_before_quotes = db.Column(db.String(254))
@@ -23,9 +24,14 @@ class Registrs(db.Model):
     region = db.Column(db.Integer)
     city = db.Column(db.Integer)
     atvk = db.Column(db.String(7))
+    registration_term = db.Column(db.Date)
 
     def __init__(self, **kwargs):
         super(Registrs, self).__init__(**kwargs)
 
     def __repr__(self):
         return '<regcode {}>'.format(self.regcode)
+
+class RegistrsSchema(ma.ModelSchema):
+    class Meta:
+        model = Registrs
